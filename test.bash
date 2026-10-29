@@ -1,4 +1,6 @@
 #!/bin/bash
+# SPDX-FileCopyrightText: 2026 Takumi Sakata
+# SPDX-Licence-Identifier: BSD-3-Clause
 
 ng () {
 	echo ${1}行目のテスト失敗
@@ -6,8 +8,9 @@ ng () {
 }
 
 res=0
-a=坂田
-["$a" = 坂田　] || ng "$LINENO"
-[ "$a" = 坂田 ] || ng "$LINENO"
 
+out=$(seq 5 | ./plus)
+[ "${out}" = 15 ] || ng "$LINENO"
+
+[ "${res}" = 0 ] && echo OK
 exit $res
