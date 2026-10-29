@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# SPDX-FileCopyrightText: 2026 takumi sakata
 import sys
 
 x = 0                     #もともと0.0だったのを0に変更
