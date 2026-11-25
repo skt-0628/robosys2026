@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 # yoloinspect automatic test
@@ -8,10 +7,10 @@ FAIL=0
 
 echo "===== YOLOINSPECT TEST START ====="
 
+# Generate test image
 TEST_IMAGE=$(mktemp --suffix=.jpg)
 trap 'rm -f "$TEST_IMAGE"' EXIT
 
-# Generate test image
 python3 - "$TEST_IMAGE" <<'PY'
 import sys
 from PIL import Image
@@ -40,11 +39,13 @@ echo "[Test 2] Nonexistent image"
 output=$(./yoloinspect nonexistent.jpg 2>&1)
 status=$?
 
-if [ "$status" -ne 0 ]; then
+if [ "$status" -ne 0 ] &&
+   echo "$output" | grep -qF "Error: image file not found."; then
     echo "PASS"
     PASS=$((PASS + 1))
 else
     echo "FAIL"
+    echo "$output"
     FAIL=$((FAIL + 1))
 fi
 
@@ -53,11 +54,13 @@ echo "[Test 3] Invalid threshold"
 output=$(./yoloinspect -t 1.5 "$TEST_IMAGE" 2>&1)
 status=$?
 
-if [ "$status" -ne 0 ]; then
+if [ "$status" -ne 0 ] &&
+   echo "$output" | grep -qF "Error: threshold must be between 0 and 1."; then
     echo "PASS"
     PASS=$((PASS + 1))
 else
     echo "FAIL"
+    echo "$output"
     FAIL=$((FAIL + 1))
 fi
 
@@ -66,11 +69,13 @@ echo "[Test 4] No image path"
 output=$(./yoloinspect </dev/null 2>&1)
 status=$?
 
-if [ "$status" -ne 0 ]; then
+if [ "$status" -ne 0 ] &&
+   echo "$output" | grep -qF "Error: no image path provided."; then
     echo "PASS"
     PASS=$((PASS + 1))
 else
     echo "FAIL"
+    echo "$output"
     FAIL=$((FAIL + 1))
 fi
 
@@ -89,6 +94,7 @@ else
     FAIL=$((FAIL + 1))
 fi
 
+# Test summary
 echo "===== YOLOINSPECT TEST END ====="
 echo "PASS: $PASS"
 echo "FAIL: $FAIL"
