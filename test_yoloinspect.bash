@@ -1,5 +1,6 @@
 #!/bin/bash
-
+# SPDX-FileCopyrightText: 2026 Takumi Sakata
+# SPDX-License-Identifier: BSD-3-Clause
 # yoloinspect automatic test
 
 PASS=0
