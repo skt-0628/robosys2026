@@ -1,5 +1,7 @@
 # robosys2026
 
+[![YOLOInspect Tests](https://github.com/skt-0628/robosys2026/actions/workflows/test.yml/badge.svg)](https://github.com/skt-0628/robosys2026/actions/workflows/test.yml)
+
 - このソフトウェアパッケージは、3条項BSDライセンスの下、再頒布および使用が許可されます。
 - `plus` コマンドは講義で作成したプログラムです。
 - `yoloinspect` コマンドは、Takumi Sakataが作成したオリジナルプログラムです。
